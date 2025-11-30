@@ -1,0 +1,12 @@
+- name: Config | Generate vector config
+  when: not ansible_check_mode
+  ansible.builtin.template:
+    src: templates/vector.conf.j2
+    dest: /etc/vector/vector.yaml
+    mode: "0644"
+    owner: root
+    group: root
+  notify: Restart vector service
+
+- name: Meta | Flush handlers
+  ansible.builtin.meta: flush_handlers

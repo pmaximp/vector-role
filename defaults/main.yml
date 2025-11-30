@@ -1,3 +1,13 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for vector-role
+app_log_path: /tmp/for_vector_test.log
+vector_version: "0.51.1"
+
+db_user: 
+db_password: 
+db_name: defaults
+db_table: example
+db_host: localhost
+db_port: 8123
+db_proto: http

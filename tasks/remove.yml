@@ -1,0 +1,10 @@
+---
+- name: Remove | Unistall vector packages
+  ansible.builtin.package:
+    name: vector
+    state: absent
+
+- name: Remove | Clear data after vector
+  ansible.builtin.file:
+    path: "/etc/vector"
+    state: absent

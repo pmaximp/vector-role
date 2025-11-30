@@ -1,3 +1,23 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for vector-role
+- name: Vector | Install
+  ansible.builtin.include_tasks:
+    file: install.yml
+    apply:
+      tags: [vector_install]
+  tags: [vector_install]
+
+- name: Vector | Configure
+  ansible.builtin.include_tasks:
+    file: config.yml
+    apply:
+      tags: [vector_config]
+  tags: [vector_config]
+
+- name: Vector | Remove
+  ansible.builtin.include_tasks:
+    file: remove.yml
+    apply:
+      tags: [vector_remove]
+  tags: [vector_remove, never]
