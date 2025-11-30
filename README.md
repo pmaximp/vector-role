@@ -23,9 +23,6 @@ Role Variables
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | <a name="input_vector_version"></a> [vector\_version](#input\_vector\_version) | Версия vector для установки | `"string"` | `0.51.1` |
-| <a name="input_vector_arch_deb"></a> [vector\_arch\_deb](#input\_vector\_arch\_deb) |  Архитектура для deb based дистрибутивов | `string` | `amd64` |
-| <a name="input_vector_arch_rpm"></a> [vector\_arch\_rpm](#input\_vector\_arch\_rpm) | Архитектура для rpm based дистрибутивов | `string` | `x86_64` |
-| <a name="input_vector_package_path"></a> [vector\_package\_path](#input\_vector\_package\_path) |  Путь сохранения пакета vector | `string` | `/tmp` |
 | <a name="input_app_log_path"></a> [app\_log\_path](#input\_app\_log\_path) | Путь до лог файла приложения | `string` | `/tmp/for_vector_test.log` |
 | <a name="input_db_user"></a> [db\_user](#input\_db\_user) | Пользователь СУБД Clickhouse для подключения | `string` | `null` |
 | <a name="input_db_password"></a> [db\_password](#input\_db\_password) | Пароль пользователя СУБД Clickhouse для подключения. | `string` | `null` |
