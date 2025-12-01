@@ -1,0 +1,54 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check | Vector is installed
+      ansible.builtin.command:
+        cmd: vector -V
+      register: vector_installed
+      failed_when: false
+      changed_when: false
+
+    - name: Assert | Vector installation
+      ansible.builtin.assert:
+        that: vector_installed.rc == 0
+        fail_msg: "Vector is not installed"
+        success_msg: "Vector is installed"
+
+    - name: Check | Vector configuration file exists
+      ansible.builtin.stat:
+        path: "/etc/vector/vector.yaml"
+      register: config_file
+
+    - name: Assert | Vector configuration file
+      ansible.builtin.assert:
+        that: config_file.stat.exists
+        fail_msg: "Vector config file is not exists"
+        success_msg: "Vector config file exists"
+
+    - name: Check | Validate Vector configuration file
+      when: config_file.stat.exists
+      ansible.builtin.command:
+        cmd: vector validate --no-environment --config-yaml {{ vector_config_file | default('/etc/vector/vector.yaml') }}
+      register: validate_config
+      changed_when: false
+
+    - name: Assert | Vector validate configuration file
+      ansible.builtin.assert:
+        that: validate_config.rc == 0
+        fail_msg: "Vector config file is not valid"
+        success_msg: "Vector config file is valid"
+
+    - name: Check | Vector process state
+      ansible.builtin.systemd:
+        name: vector
+      register: process_state
+      changed_when: false
+
+    - name: Assert | Vector process state
+      ansible.builtin.assert:
+        that: process_state.status.ActiveState == 'active'
+        fail_msg: "Vector service is not running"
+        success_msg: "Vector service is running"

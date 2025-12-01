@@ -1,0 +1,37 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  yamllint .
+  ansble-lint
+platforms:
+  - name: debian-vector
+    image: geerlingguy/docker-debian11-ansible
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns: host
+    privileged: true
+    pre_build_image: true
+
+  - name: fedora-vector
+    image: geerlingguy/docker-fedora43-ansible
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns: host
+    privileged: true
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+  env:
+    ANSIBLE_PIPELINING: "True"
+    ANSIBLE_ROLES_PATH: /srv/ansible
+
+verifier:
+  name: ansible
+    
