@@ -31,6 +31,7 @@ Role Variables
 | <a name="input_db_host"></a> [db\_host](#input\_db\_host) | Имя или ip-адрес хоста с Clickhouse.  Используется есть не задана группа clickhouse в inventory | `string` | `localhost` |
 | <a name="input_db_port"></a> [db\_port](#input\_db\_port) | Порт подключения к СУБД Clickhouse | `number` | `8123` |
 | <a name="input_db_proto"></a> [db\_proto](#input\_db\_proto) | Протокол взаимодействия с СУБД Clickhouse | `string` | `http` |
+| <a name="input_db_healthcheck"></a> [db\_healthcheck](#input\_db\_healthcheck) | Выполнять healthceck СУБД или нет. Устанавливает значение в конифгурации vector (healthcheck.enabled) | `boot` | `true` |
 
 Example Playbook
 ----------------

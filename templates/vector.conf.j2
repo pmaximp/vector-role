@@ -12,6 +12,8 @@ sinks:
     inputs:
       - log_file
     compression: gzip
+    healthcheck: 
+      enabled: {{ db_healthcheck }}
     database: {{ db_name }}
     {% if 'clickhouse' not in groups %}endpoint: {{ db_proto }}://{{ db_host }}:{{ db_port }}
     {% else %}endpoint: {{ db_proto }}://{{ hostvars[groups['clickhouse'][0]]['inventory_hostname'] }}:{{ db_port }}

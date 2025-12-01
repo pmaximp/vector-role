@@ -11,3 +11,4 @@ db_table: example
 db_host: localhost
 db_port: 8123
 db_proto: http
+db_healthcheck: true
