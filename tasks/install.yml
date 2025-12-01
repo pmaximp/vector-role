@@ -18,8 +18,9 @@
       notify: Restart vector service
 
 - name: Install | RPM
-  when: >
-    ansible_facts["pkg_mgr"] == "dnf" or ansible_facts["pkg_mgr"] == "yum"
+  when: |
+    ansible_facts['pkg_mgr'] is match('.*\\bdnf\\w*.*')
+    or ansible_facts["pkg_mgr"] == "yum"
     and vector_arch_rpm is defined
   block:
     - name: Install | PRM | Get vector packages
