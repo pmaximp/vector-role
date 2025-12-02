@@ -1,0 +1,30 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Check | Vector is installed
+      ansible.builtin.command:
+        cmd: vector -V
+      register: vector_installed
+      failed_when: false
+      changed_when: false
+
+    - name: Assert | Vector installation
+      ansible.builtin.assert:
+        that: vector_installed.rc == 0
+        fail_msg: "Vector is not installed"
+        success_msg: "Vector is installed"
+
+    - name: Check | Vector process state
+      ansible.builtin.systemd:
+        name: vector
+      register: process_state
+      changed_when: false
+
+    - name: Assert | Vector process state
+      ansible.builtin.assert:
+        that: process_state.status.ActiveState == 'active'
+        fail_msg: "Vector service is not running"
+        success_msg: "Vector service is running"

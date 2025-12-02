@@ -4,7 +4,7 @@
   connection: local
   gather_facts: false
   tasks:
-    - name: Destroy Docker instances
+    - name: Destroy containers
       community.docker.docker_container:
         name: "{{ item.name }}"
         state: absent

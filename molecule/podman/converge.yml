@@ -1,0 +1,29 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  become: true
+
+  vars:
+    db_user: some_user
+    db_password: some_password
+    db_healthcheck: false
+
+  pre_tasks:
+    - name: Preparation | Install Python
+      ansible.builtin.raw: |
+        if [ -f /etc/debian_version ]; then
+          apt-get install -y python3
+        elif [ -f /etc/redhat-release ]; then
+          yum install -y python3 || dnf install -y python3
+        fi
+      changed_when: false
+      register: python_install
+
+  tasks:
+    - name: Gather facts
+      ansible.builtin.setup:
+
+    - name: Include vector_role
+      ansible.builtin.include_role:
+        name: vector_role
